@@ -1,8 +1,7 @@
 name: samsung_health_reporter
 description: A new Flutter project.
-version: 0.0.1
-author:
-homepage:
+version: 0.0.1+1
+homepage: https://github.com/VictorKachalov/samsung_health_reporter
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
