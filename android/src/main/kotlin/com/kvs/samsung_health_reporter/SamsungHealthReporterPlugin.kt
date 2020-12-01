@@ -1,6 +1,7 @@
 package com.kvs.samsung_health_reporter
 
 import androidx.annotation.NonNull
+import com.kvs.samsunghealthreporter.SamsungHealthReporter
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
