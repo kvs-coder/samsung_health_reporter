@@ -20,18 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8902b398-df28-4912-8049-cd2f0dddfcd2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/kvs/samsung_health_reporter/SamsungHealthReporterStreamHandler.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/exceptions.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/model/step_count.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/session_type.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/kvs/samsung_health_reporter/SamsungHealthReporterPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/kvs/samsung_health_reporter/SamsungHealthReporterPlugin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/samsung_health_reporter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/samsung_health_reporter.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/samsung_health_reporter_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/samsung_health_reporter_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/kvs/samsung_health_reporter/SamsungHealthReporterStreamHandler.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

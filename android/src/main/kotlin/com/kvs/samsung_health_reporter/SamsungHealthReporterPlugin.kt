@@ -79,7 +79,6 @@ class SamsungHealthReporterPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                     callMethod
             )
         }
-
     }
 
     private fun readSteps(reporter: SamsungHealthReporter, call: MethodCall, result: MethodChannel.Result) {
