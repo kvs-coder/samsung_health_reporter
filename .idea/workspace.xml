@@ -1,21 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="8902b398-df28-4912-8049-cd2f0dddfcd2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/kvs/samsung_health_reporter/SamsungHealthReporterStreamHandler.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/exceptions.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/model/step_count.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/session_type.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/kvs/samsung_health_reporter/SamsungHealthReporterPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/kvs/samsung_health_reporter/SamsungHealthReporterPlugin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/samsung_health_reporter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/samsung_health_reporter.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/samsung_health_reporter_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/samsung_health_reporter_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1kKuu7wJ1pH3ijdscl4XbdESiws" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -23,6 +59,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager" selected="Flutter.example/lib/main.dart">
@@ -42,7 +79,38 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
+    <state x="2093" y="107" key="#com.intellij.ide.util.MemberChooser" timestamp="1607199590020">
+      <screen x="1440" y="-125" width="1680" height="1025" />
+    </state>
+    <state x="2093" y="107" key="#com.intellij.ide.util.MemberChooser/0.25.1440.799/1440.-125.1680.1025@1440.-125.1680.1025" timestamp="1607199590020" />
+    <state width="1638" height="471" key="GridCell.Tab.0.bottom" timestamp="1607201937688">
+      <screen x="1440" y="-125" width="1680" height="1025" />
+    </state>
+    <state width="1638" height="471" key="GridCell.Tab.0.bottom/0.25.1440.799/1440.-125.1680.1025@1440.-125.1680.1025" timestamp="1607201937688" />
+    <state width="1638" height="471" key="GridCell.Tab.0.center" timestamp="1607201937687">
+      <screen x="1440" y="-125" width="1680" height="1025" />
+    </state>
+    <state width="1638" height="471" key="GridCell.Tab.0.center/0.25.1440.799/1440.-125.1680.1025@1440.-125.1680.1025" timestamp="1607201937687" />
+    <state width="1638" height="471" key="GridCell.Tab.0.left" timestamp="1607201937687">
+      <screen x="1440" y="-125" width="1680" height="1025" />
+    </state>
+    <state width="1638" height="471" key="GridCell.Tab.0.left/0.25.1440.799/1440.-125.1680.1025@1440.-125.1680.1025" timestamp="1607201937687" />
+    <state width="1638" height="471" key="GridCell.Tab.0.right" timestamp="1607201937688">
+      <screen x="1440" y="-125" width="1680" height="1025" />
+    </state>
+    <state width="1638" height="471" key="GridCell.Tab.0.right/0.25.1440.799/1440.-125.1680.1025@1440.-125.1680.1025" timestamp="1607201937688" />
     <state x="418" y="216" width="651" height="490" key="find.popup" timestamp="1605461904097">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
