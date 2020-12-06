@@ -14,7 +14,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import java.lang.Exception
-import java.lang.IllegalStateException
 import java.util.*
 
 /** SamsungHealthReporterPlugin */
@@ -35,7 +34,7 @@ class SamsungHealthReporterPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
     }
 
     private lateinit var mChannel: MethodChannel
-    private lateinit var mReporter: SamsungHealthReporter
+    private var mReporter: SamsungHealthReporter? = null
     private var mActivity: Activity? = null
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -45,38 +44,39 @@ class SamsungHealthReporterPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
         )
         try {
             mReporter = SamsungHealthReporter(flutterPluginBinding.applicationContext)
-            mReporter.openConnection()
-        } catch (exception: IllegalStateException) {
+            mReporter?.openConnection()
+        } catch (exception: Exception) {
             exception.printStackTrace()
         }
         mChannel.setMethodCallHandler(this)
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        val callMethod = call.method
-        val method = Method.initWith(callMethod)
-        if (method != null) {
-            try {
+        val reporter = mReporter
+        if (reporter != null) {
+            val callMethod = call.method
+            val method = Method.initWith(callMethod)
+            if (method != null) {
                 when (method) {
                     Method.AUTHORIZE -> {
-                        authorize(mReporter, call, result)
+                        authorize(reporter, call, result)
                     }
                     Method.READ_STEPS -> {
-                        readSteps(mReporter, call, result)
+                        readSteps(reporter, call, result)
                     }
                 }
-            } catch (exception: SamsungHealthInitializationException) {
+            } else {
                 result.error(
-                        "SamsungHealthReporter",
-                        "Initialization failed or connection was not opened",
-                        exception
+                        "Method",
+                        "Method is NULL",
+                        callMethod
                 )
             }
         } else {
             result.error(
-                    "Method",
-                    "Method is NULL",
-                    callMethod
+                    "SamsungHealthReporter",
+                    "Reporter is NULL",
+                    null
             )
         }
     }
@@ -138,35 +138,6 @@ class SamsungHealthReporterPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
         }
     }
 
-    private fun openConnection(reporter: SamsungHealthReporter, result: MethodChannel.Result) {
-        try {
-            reporter.connectionListener = object : SamsungHealthConnectionListener {
-                override fun onConnected() {
-                    result.success(true)
-                }
-
-                override fun onDisconnected() {
-                    result.success(false)
-                }
-
-                override fun onConnectionFailed(exception: SamsungHealthConnectionException) {
-                    result.error(
-                            "SamsungHealthReporter",
-                            "onConnectionFailed",
-                            exception
-                    )
-                }
-            }
-            reporter.openConnection()
-        } catch (exception: IllegalStateException) {
-            result.error(
-                    "OpenConnection",
-                    "Connection to Samsung Health failed",
-                    exception
-            )
-        }
-    }
-
     private fun parse(arguments: List<String>): Set<HealthType> {
         val set = mutableSetOf<HealthType>()
         for (element in arguments) {
@@ -210,5 +181,7 @@ class SamsungHealthReporterPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         mChannel.setMethodCallHandler(null)
+        mReporter?.closeConnection()
+        mReporter = null
     }
 }

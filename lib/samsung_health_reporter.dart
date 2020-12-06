@@ -9,10 +9,6 @@ class SamsungHealthReporter {
   static const MethodChannel _channel =
       const MethodChannel('samsung_health_reporter_method_channel');
 
-  static Future<bool> openConnection() async {
-    return await _channel.invokeMethod('openConnection');
-  }
-
   static Future<bool> authorize(
       List<String> toRead, List<String> toWrite) async {
     final arguments = {

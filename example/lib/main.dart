@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:samsung_health_reporter/samsung_health_reporter.dart';
 import 'package:samsung_health_reporter/session_type.dart';
 
@@ -18,18 +17,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      final opened = await SamsungHealthReporter.openConnection();
-      print('opened: $opened');
-    } on PlatformException catch (e) {
-      print(e);
-    }
   }
 
   @override
