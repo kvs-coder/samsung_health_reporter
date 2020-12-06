@@ -10,6 +10,8 @@ import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.EventChannel.StreamHandler
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -17,7 +19,7 @@ import java.lang.Exception
 import java.util.*
 
 /** SamsungHealthReporterPlugin */
-class SamsungHealthReporterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
+class SamsungHealthReporterPlugin : FlutterPlugin, MethodCallHandler, StreamHandler, ActivityAware {
     internal enum class Method(val string: String) {
         AUTHORIZE("authorize"),
         READ_STEPS("readSteps");
@@ -32,23 +34,43 @@ class SamsungHealthReporterPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             }
         }
     }
+    internal enum class Event(private val string: String) {
+        OBSERVE("observe");
+
+        companion object {
+            fun initWith(string: String): Event? {
+                return when (string) {
+                    OBSERVE.string -> OBSERVE
+                    else -> null
+                }
+            }
+        }
+    }
 
     private lateinit var mChannel: MethodChannel
+    private lateinit var mObserveChannel: EventChannel
+
     private var mReporter: SamsungHealthReporter? = null
     private var mActivity: Activity? = null
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        mChannel = MethodChannel(
-                flutterPluginBinding.binaryMessenger,
-                "samsung_health_reporter_method_channel"
-        )
         try {
             mReporter = SamsungHealthReporter(flutterPluginBinding.applicationContext)
             mReporter?.openConnection()
+            val binaryMessenger = flutterPluginBinding.binaryMessenger
+            mChannel = MethodChannel(
+                    binaryMessenger,
+                    "samsung_health_reporter_method_channel"
+            )
+            mObserveChannel = EventChannel(
+                    binaryMessenger,
+                    "samsung_health_reporter_event_channel_observe"
+            )
+            mChannel.setMethodCallHandler(this)
+            mObserveChannel.setStreamHandler(this)
         } catch (exception: Exception) {
             exception.printStackTrace()
         }
-        mChannel.setMethodCallHandler(this)
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -81,7 +103,104 @@ class SamsungHealthReporterPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
         }
     }
 
-    private fun readSteps(reporter: SamsungHealthReporter, call: MethodCall, result: MethodChannel.Result) {
+    override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+        val reporter = mReporter
+        if (reporter != null) {
+            if (arguments != null) {
+                val args = arguments as Map<*, *>
+                val eventMethod = args["eventMethod"] as? String
+                if (eventMethod != null) {
+                    val event = Event.initWith(eventMethod)
+                    if (event != null) {
+                        when (event) {
+                            Event.OBSERVE -> {
+                                observe(reporter, arguments, events)
+                            }
+                        }
+                    } else {
+                        events?.error(
+                                "Bad arguments",
+                                "Event method was unknown: $eventMethod",
+                                null
+                        )
+                    }
+                } else {
+                    events?.error(
+                            "Bad arguments",
+                            "Event method was null",
+                            null
+                    )
+                }
+            } else {
+                events?.error(
+                        "Bad arguments",
+                        "Arguments were NULL",
+                        null
+                )
+            }
+        } else {
+            events?.error(
+                    "SamsungHealthReporter",
+                    "Reporter was NULL",
+                    null
+            )
+        }
+    }
+
+    override fun onCancel(arguments: Any?) {
+        mReporter?.observer?.dispose()
+    }
+
+    private fun observe(
+            reporter: SamsungHealthReporter,
+            arguments: Map<*, *>,
+            events: EventChannel.EventSink?
+    ) {
+        val observeType = arguments["observeType"] as? String
+        if (observeType != null) {
+            try {
+                runOnBackground {
+                    val type = HealthType.initWith(observeType)
+                    reporter.observer
+                            .observe(type)
+                            .subscribe(
+                                    onNext = {
+                                        runOnMain {
+                                            events?.success(it.string)
+                                        }
+                                    },
+                                    onError = {
+                                        runOnMain {
+                                            events?.error(
+                                                    "SamsungHealthReporter",
+                                                    "Observer error",
+                                                    it
+                                            )
+                                        }
+                                    }
+                            )
+                }
+            } catch (exception: Exception) {
+                events?.error(
+                        "Bad arguments",
+                        "Observe type was NULL",
+                        null
+                )
+            }
+        } else {
+            events?.error(
+                    "SamsungHealthReporter",
+                    "Observe type was unknown: $observeType",
+                    null
+            )
+        }
+    }
+
+    private fun readSteps(
+            reporter: SamsungHealthReporter,
+            call: MethodCall,
+            result: MethodChannel.Result
+    ) {
         val startTime = call.argument("startTime") as? Long
         val endTime = call.argument("endTime") as? Long
         if (startTime != null && endTime != null) {
@@ -105,7 +224,11 @@ class SamsungHealthReporterPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
         }
     }
 
-    private fun authorize(reporter: SamsungHealthReporter, call: MethodCall, result: MethodChannel.Result) {
+    private fun authorize(
+            reporter: SamsungHealthReporter,
+            call: MethodCall,
+            result: MethodChannel.Result
+    ) {
         val activity = mActivity
         if (activity != null) {
             val manager = reporter.manager

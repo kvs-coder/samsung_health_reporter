@@ -14,9 +14,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  var _observeSub;
+
   @override
   void initState() {
     super.initState();
+    observe();
   }
 
   @override
@@ -63,5 +66,13 @@ class _MyAppState extends State<MyApp> {
     } finally {
       print('SamsungHealthReporter is done');
     }
+  }
+
+  void observe() {
+    final constant = SessionType.stepCount.constant;
+    _observeSub = SamsungHealthReporter.observe(constant, onUpdate: (constant) {
+      print('Updates for observe: $constant');
+    });
+    print('observerQuerySub: $_observeSub');
   }
 }
