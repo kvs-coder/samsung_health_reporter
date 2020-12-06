@@ -14,7 +14,6 @@ class SamsungHealthReporter {
   static StreamSubscription<dynamic> observe(String constant,
       {Function(String) onUpdate}) {
     final arguments = <String, dynamic>{
-      'eventMethod': 'observe',
       'observeType': constant,
     };
     return _observeChannel.receiveBroadcastStream(arguments).listen((event) {

@@ -108,29 +108,7 @@ class SamsungHealthReporterPlugin : FlutterPlugin, MethodCallHandler, StreamHand
         if (reporter != null) {
             if (arguments != null) {
                 val args = arguments as Map<*, *>
-                val eventMethod = args["eventMethod"] as? String
-                if (eventMethod != null) {
-                    val event = Event.initWith(eventMethod)
-                    if (event != null) {
-                        when (event) {
-                            Event.OBSERVE -> {
-                                observe(reporter, arguments, events)
-                            }
-                        }
-                    } else {
-                        events?.error(
-                                "Bad arguments",
-                                "Event method was unknown: $eventMethod",
-                                null
-                        )
-                    }
-                } else {
-                    events?.error(
-                            "Bad arguments",
-                            "Event method was null",
-                            null
-                    )
-                }
+                observe(reporter, args, events)
             } else {
                 events?.error(
                         "Bad arguments",
