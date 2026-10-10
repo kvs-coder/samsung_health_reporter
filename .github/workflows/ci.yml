@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # Minimum Dart line coverage of lib/ in percent
+  COVERAGE_THRESHOLD: "90.0"
+
+jobs:
+  release-guard:
+    name: Version / Changelog
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Top CHANGELOG.md entry matches pubspec.yaml
+        run: |
+          version=$(sed -n 's/^version: //p' pubspec.yaml)
+          header=$(grep -m1 '^## ' CHANGELOG.md)
+          echo "pubspec: $version, changelog: $header"
+          [[ "$header" =~ ^"## [$version] - "[0-9]{2}\.[0-9]{2}\.[0-9]{4}$ ]] || {
+            echo "::error file=CHANGELOG.md,line=1::Expected '## [$version] - dd.MM.yyyy', got '$header'"
+            exit 1
+          }
+
+  dart:
+    name: Analyze / Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - name: Analyze
+        run: flutter analyze
+      - name: Test
+        run: flutter test --coverage
+      - name: Coverage gate
+        run: |
+          coverage=$(awk -F'[:,]' '/^DA:/ { total++; if ($3 > 0) hit++ } END { printf "%.1f", 100 * hit / total }' coverage/lcov.info)
+          echo "lib coverage: $coverage%, threshold: $COVERAGE_THRESHOLD%"
+          awk -v c="$coverage" -v t="$COVERAGE_THRESHOLD" 'BEGIN { exit !(c >= t) }' || {
+            echo "::error::Dart line coverage $coverage% is below the $COVERAGE_THRESHOLD% threshold"
+            exit 1
+          }
+      - name: Test the example
+        working-directory: example
+        run: flutter test
+
+  android:
+    name: Android (Gradle build, Kotlin tests, ktlint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      # Without the Samsung Health Data SDK AAR, which can't be redistributed:
+      # the plugin compiles against SamsungHealthReporter only
+      - name: Build
+        working-directory: example
+        run: flutter build apk --debug
+      - name: Kotlin unit tests
+        working-directory: example/android
+        run: ./gradlew :samsung_health_reporter:testDebugUnitTest
+      - name: ktlint
+        working-directory: android
+        run: |
+          curl -sSL -o "$RUNNER_TEMP/ktlint" https://github.com/pinterest/ktlint/releases/download/1.8.0/ktlint
+          chmod +x "$RUNNER_TEMP/ktlint"
+          "$RUNNER_TEMP/ktlint" "src/**/*.kt" "*.kts"

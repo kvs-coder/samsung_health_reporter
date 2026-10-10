@@ -1,9 +1,8 @@
 .DS_Store
 .dart_tool/
-
-.packages
-.pub/
+.idea/
+*.iml
 
 build/
-.idea/libraries/Flutter_Plugins.xml
-.idea/workspace.xml
+coverage/
+pubspec.lock

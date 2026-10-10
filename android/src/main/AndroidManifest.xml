@@ -1,3 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.kvs.samsung_health_reporter">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Samsung Health must be visible to check that it is installed (Android 11+ package visibility) -->
+    <queries>
+        <package android:name="com.sec.android.app.shealth" />
+    </queries>
 </manifest>
