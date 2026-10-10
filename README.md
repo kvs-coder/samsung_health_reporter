@@ -10,7 +10,7 @@ A Flutter plugin for **Samsung Health on Android**, wrapping the Kotlin library 
 
 ```yaml
 dependencies:
-  samsung_health_reporter: ^0.0.1 # x-release-please-version
+  samsung_health_reporter: ^1.0.0 # x-release-please-version
 ```
 
 `SamsungHealthReporter` mirrors the Kotlin library [SamsungHealthReporter](https://github.com/kvs-coder/SamsungHealthReporter): a manager, a reader with aggregates, a writer and an observer over the [Samsung Health Data SDK](https://developer.samsung.com/health/data/overview.html). Timestamps are epoch milliseconds, as in the library; models live in `model/`.
