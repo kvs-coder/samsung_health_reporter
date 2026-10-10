@@ -1,9 +1,9 @@
 # Changelog
 
-## [1.0.0](https://github.com/kvs-coder/samsung_health_reporter/compare/v0.0.1...v1.0.0) (2026-10-10)
+## [1.0.0] - 10.10.2026
 
 
-### ⚠ BREAKING CHANGES
+### BREAKING CHANGES
 
 * the plugin is rebuilt from scratch on the Samsung Health Data SDK and supports Android 10+ only. Every Dart API, model and channel name changed; migrate to SamsungHealthReporter's static methods and models, add the Samsung Health Data SDK AAR to the app's libs and the JitPack repository to android/build.gradle.kts (see README.md).
 
