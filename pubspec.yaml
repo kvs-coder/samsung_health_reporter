@@ -1,6 +1,6 @@
 name: samsung_health_reporter
 description: Reads, writes and observes Samsung Health data on Android through the Samsung Health Data SDK, wrapping the Kotlin library SamsungHealthReporter.
-version: 0.0.1
+version: 1.0.0
 homepage: https://github.com/kvs-coder/samsung_health_reporter
 repository: https://github.com/kvs-coder/samsung_health_reporter
 issue_tracker: https://github.com/kvs-coder/samsung_health_reporter/issues
