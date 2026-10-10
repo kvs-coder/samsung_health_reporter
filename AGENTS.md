@@ -207,7 +207,7 @@ Before any commit or PR creation, the codebase must pass all gates:
 * **release-please** (`.github/workflows/release.yml`, `release-please-config.json`, `.release-please-manifest.json`) derives the next version from the Conventional Commits on `master` and keeps a release PR open that bumps `pubspec.yaml`, the example's `pubspec.yaml`, the README's dependency line and `CHANGELOG.md` (headers reformatted to `## [X.Y.Z] - dd.MM.yyyy`). Never bump versions or write release changelog entries by hand.
 * Merging the release PR tags `vX.Y.Z`; `release.yml` then starts `.github/workflows/publish.yml` on that tag, which publishes to pub.dev through GitHub's OIDC token (pub.dev admin › Automated publishing: GitHub Actions, repository `kvs-coder/samsung_health_reporter`, tag pattern `v{{version}}`, push and `workflow_dispatch` events). Merging the release PR happens only on the maintainer's request.
 * `pubspec.yaml` `version` and the top `CHANGELOG.md` entry always agree (CI's release guard checks it).
-* **Starting point**: the manifest is at `0.0.1+1`, the version published to pub.dev in 2020; the breaking rewrite on the Samsung Health Data SDK makes the first release PR 1.0.0.
+* **Starting point**: the manifest is at `0.0.1` (published to pub.dev in 2020 as `0.0.1+1`; versions carry no build number, which release-please's dart updater would append twice); the breaking rewrite on the Samsung Health Data SDK makes the first release PR 1.0.0.
 
 ---
 
