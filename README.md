@@ -141,6 +141,10 @@ cd example && flutter run
 
 `example/integration_test/catalog_test.dart` runs every row on a connected phone; grant the read permissions once from the app's `requestPermissions` row first.
 
+## Architecture
+
+The architecture is documented with arc42 in [doc/arc42/README.md](doc/arc42/README.md); decisions in [doc/adr/](doc/adr/).
+
 ## Releasing
 
 Releases are automated by [release-please](https://github.com/googleapis/release-please): Conventional Commits on `master` keep a release PR open, and merging it tags `vX.Y.Z` and publishes to pub.dev through GitHub's OIDC token.

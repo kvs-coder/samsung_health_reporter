@@ -72,6 +72,7 @@ test/
 └── platform_test.dart                (Android only)
 
 doc/adr/                              (decisions of the plugin, numbered)
+doc/arc42/README.md                   (architecture documentation, arc42 with Mermaid diagrams)
 
 example/
 ├── lib/bloc/                         (Bloc base on plain streams, BlocBuilder; no state management packages)
